@@ -1,14 +1,14 @@
-export interface Response {
+export interface Note {
     id: string,
     title: string,
     content: string,
     createdAt: string,
-    updatedaT: string,
-    tag: string
+    updatedAt: string,
+    tag: "Todo" | "Work" | "Personal" | "Meeting" | "Shopping",
 }
 
-export interface Note {
+export interface NoteMin {
     title: string,
     content: string,
-    tag: string,
+    tag: "Todo" | "Work" | "Personal" | "Meeting" | "Shopping",
 }
