@@ -32,21 +32,23 @@ export default function NoteForm({ onClose }: NoteFormProps) {
     const queryClient = useQueryClient()
 
     const mutationCreate = useMutation({
-    mutationFn: async (note: NoteMin) => {
-      await createNote(note)
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["note"] })
-    }
-  })
-    
+        mutationFn: (note: NoteMin) => createNote(note),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["note"] });
+        },
+    });
+
+
     const handleSubmit = (
         values: NoteMin,
         actions: FormikHelpers<NoteMin>
     ) => {
-        mutationCreate.mutate(values);
-        actions.resetForm();
-        onClose();
+        mutationCreate.mutate(values, {
+            onSuccess: () => {
+                actions.resetForm();
+                onClose();
+            },
+        });
     };
 
     return (

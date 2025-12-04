@@ -19,19 +19,19 @@ export const fetchNotes = async (title: string, page: number) => {
             Authorization: `Bearer ${myKey}`
         }
     });
-    return response.data
+  return response.data;
 };
 
-export const deleteNote = async (id: string) => {
+export const deleteNote = async (id: string): Promise<Note> => {
   const deleteResp = await axios.delete<Note>(`https://notehub-public.goit.study/api/notes/${id}`, {
     headers: {
       Authorization: `Bearer ${myKey}`
     }
   });
-  return deleteResp;
+  return deleteResp.data;
 }
 
-export const createNote = async (note: NoteMin) => {
+export const createNote = async (note: NoteMin): Promise<Note> => {
   const createResp = await axios.post<Note>(
     "https://notehub-public.goit.study/api/notes",
     note,
@@ -41,5 +41,5 @@ export const createNote = async (note: NoteMin) => {
       },
     }
   );
-  return createResp
+  return createResp.data;
 };
